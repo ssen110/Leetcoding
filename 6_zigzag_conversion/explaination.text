@@ -1,0 +1,32 @@
+First I looked at the problem and thought about how the printed pattern looked like it would be mapped out on a matrix. I wrote out the number of "main" columns and then the number of "middle" columns
+
+P           I         N
+A      L    S     I   G
+Y    A      H    R
+P           I
+------------------------
+4     2     4     2   2(*)
+The last line is 2 only because the word ends, but we can see that the pattern is 4-2-4-2-4-.... When drawing it out for numRows = 3, the pattern became
+
+P         A         H         N
+A    P    L    S    I    I    G
+Y         I         R
+---------------------------------
+3    1    3    1    3    1    2(*)
+Again we can see the pattern is 3-1-3-1-3-...
+
+So the pattern of "main" rows to "mid" rows is n, n-2, n, n-2, ...
+
+When I tried to build an algorithm for this pattern I got stuck. How would I make the index move up n, then down n-2 without confusing myself or missing edge cases?
+
+Next I tried to write out the row of each letter in the string. For numRows = 4, it became:
+
+P  A  Y  P  A  L  I  S  H  I  R  I  N  G
+-----------------------------------------
+1  2  3  4  3  2  1  2  3  4  3  2  1  2
+For numRows = 3, it became:
+
+P  A  Y  P  A  L  I  S  H  I  R  I  N  G
+-----------------------------------------
+1  2  3  2  1  2  3  2  1  2  3  2  1  2
+This is where I found the correct pattern. Basically instead of worrying about "main" rows vs. "mid" rows, it easily maps into moving the index from 1 -> numRows, and then from numRows -> 1. We don't even need to think about a matrix and worrying about rows vs. columns.
